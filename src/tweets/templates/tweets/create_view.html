@@ -1,0 +1,8 @@
+
+{% extends "base.html" %}
+
+{% block title%} {{block.super}} | Hey!{% endblock title%}
+
+{% block content %}
+    {% include "tweets/forms.html" with form=form btn_value='Tweet'%}
+{% endblock content%}

@@ -1,0 +1,17 @@
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Tweet</title>
+</head>
+<body>
+<form> action="{% if action_url%} {{action_url}} {% endif %}" method="post">{% csrf_token %}
+    {{ form|crispy }}
+    <input type="submit" value="{{btn_value}}" />
+</form>
+</body>
+</html>
+
+
+

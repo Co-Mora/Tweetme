@@ -1,0 +1,12 @@
+
+{% extends "base.html" %}
+
+{% block title%} {{block.super}} | Details{% endblock title%}
+
+{% block content %}
+    {{object.username}} <br>
+    {% for tweet in object.tweet_set.all%}
+        {{tweet}} <br>
+    {% endfor %}
+
+{% endblock content%}

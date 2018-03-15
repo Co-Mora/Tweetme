@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+        {% block script %}
+            <script>
+                $(document).ready(function(){
+                    console.log("working");
+                });
+
+                $.ajax({
+                    url: "api/tweet",
+                    method: "GET",
+                    success: function(data) {
+                        $.each(data, function (key,value) {
+                            var tweetKey = key;
+                            var tweetContent = value.content;
+                            var tweetUser = value.user;
+                            $("#tweet-container").append(
+                                "<li>"  + tweetContent + "<br>" + tweetUser.username + " | " + "<a href='#'>View</a>" + "</li>"
+                            )
+                        })
+                    },
+
+                    error:function(data){
+                        console.log("error");
+                        console.log(data);
+                    },
+                })
+
+                $("#tweet-form").submit(function (event) {
+                    event.preventDefault()
+                    console.log(event);
+                    console.log($(this));
+                })
+
+            </script>
+        {% endblock script %}
+
+{% block content %}
+
+<div id="tweet-container">
+
+</div>
+<div class="row">
+    <div class="col-sm-8 col-sm-offset-2">
+
+    <!-- Left-aligned -->
+        <div class="col-sm-3">
+              {{request.user}}
+        </div>
+        <div class="col-sm-9">
+            {% if not request.GET.q %}
+            <div>
+                                {% include "tweets/forms.html" with form=create_form action_url=create_url btn_value='Tweet'%}
+
+            </div>
+            {% endif%}
+            {% for object in object_list%}
+             <div class="media">
+          <div class="media-left">
+              {% if object.image %}
+                    <img src="img_avatar1.png" class="media-object" style="width:60px">
+
+              {% endif %}
+          </div>
+          <div class="media-body">
+            <p>  {{object.content}} Via</p>
+
+               {{object.timestamp}} <br>
+   {{object.timestamp|timesince}} | <a href="{{object.get_absolute_url}}">View</a>
+            <hr>
+          </div>
+        </div>
+        </div>
+{% empty %}
+   <p>No Tweet yet.</p>
+
+
+    {% endfor%}
+{% endblock content%}
+
+
+
+    </div>
+</div>

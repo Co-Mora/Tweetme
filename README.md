@@ -1,0 +1,1 @@
+Tweetme is a social networking site built in paython & django where people communicate in short messages called tweets. tweeting is sending short messages to anyone who follows you.
